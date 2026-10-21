@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stella — голосовой помощник с 3D-аватаром для Android</title>
+<meta name="description" content="Stella — голосовой помощник для Android с 3D-аватаром (VRM), плавающим оверлеем, голосовыми командами и поддержкой AI: OpenAI, OpenRouter, Google Gemini.">
+<meta name="theme-color" content="#111318">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Stella — голосовой помощник для Android">
+<meta property="og:description" content="3D-аватар, оверлей, голосовые команды и AI в одном приложении.">
+<meta property="og:image" content="images/icon-192.png">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/icon-192.png">
+<link rel="preload" as="image" href="images/shot-home.webp" type="image/webp">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></symbol>
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></symbol>
+  <symbol id="i-avatar" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m11.99 18.54-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></symbol>
+  <symbol id="i-ai" viewBox="0 0 24 24"><path d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.38 0 2.5-1.12 2.5-2.5v-2C21 4.12 19.88 3 18.5 3zM16 10c0 2.76-2.24 5-5 5s-5-2.24-5-5V5h10v5zm4.5-3.5c0 .28-.22.5-.5.5h-.5V5h.5c.28 0 .5.22.5.5v1zM4 19h16v2H4z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="m4 12 1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="nav-wrap">
+  <nav class="nav" aria-label="Основная навигация">
+    <a class="nav__brand" href="#top" aria-label="Stella — наверх">
+      <img src="images/icon.webp" width="36" height="36" alt="">
+      <span>Stella</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#features">Возможности</a></li>
+      <li><a href="#screens">Скриншоты</a></li>
+      <li><a href="#download">Скачать</a></li>
+      <li><a href="#donate">Кофе</a></li>
+    </ul>
+    <a class="btn btn--filled btn--sm" href="#download">Скачать</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="hero" id="top">
+    <div class="hero__text">
+      <img class="hero__icon" src="images/icon-192.png" width="96" height="96" alt="Иконка Stella" fetchpriority="high">
+      <h1>Stella</h1>
+      <p class="hero__lead">Голосовой помощник для Android с&nbsp;3D-аватаром, плавающим оверлеем и&nbsp;поддержкой AI. Говорите&nbsp;— Stella слушает, отвечает и&nbsp;выполняет команды.</p>
+      <ul class="chips" aria-label="Коротко о приложении">
+        <li class="chip">Android</li>
+        <li class="chip">Версия 1.0.0</li>
+        <li class="chip">VRM-модели</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn--filled" href="#download" data-apk>
+          <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Скачать APK
+        </a>
+        <a class="btn btn--tonal" href="https://t.me/LuPlugins" target="_blank" rel="noopener" data-channel>
+          <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Канал
+        </a>
+      </div>
+    </div>
+    <div class="hero__shot">
+      <img src="images/shot-home.webp" width="520" height="1020" alt="Главный экран Stella: переключатель «Активно», микрофон, режим «Только голос» и выбор AI" fetchpriority="high">
+    </div>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <h2 id="features-title">Что умеет Stella</h2>
+    <div class="grid grid--features">
+      <article class="card">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="#i-avatar"/></svg></span>
+        <h3>3D-аватар</h3>
+        <p>Загружайте VRM-модели по ссылке или из папки и настраивайте свет и сцену под себя.</p>
+      </article>
+      <article class="card">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+        <h3>Плавающее окно</h3>
+        <p>Оверлей поверх других приложений: размер, прозрачность и прилипание к краю настраиваются.</p>
+      </article>
+      <article class="card">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg></span>
+        <h3>Голосовые команды</h3>
+        <p>Поиск в Google, ввод текста голосом, управление музыкой&nbsp;— и свои команды с&nbsp;любыми фразами активации.</p>
+      </article>
+      <article class="card">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="#i-ai"/></svg></span>
+        <h3>Любой AI</h3>
+        <p>OpenAI, OpenRouter или Google Gemini: вставьте свой API-ключ и выберите модель.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="screens" aria-labelledby="screens-title">
+    <h2 id="screens-title">Скриншоты</h2>
+    <ul class="grid grid--shots">
+      <li class="shot">
+        <img src="images/shot-home.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Главная: включение, микрофон и быстрый доступ">
+        <h3>Главная</h3><p>Включение, микрофон, быстрый доступ</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-commands.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Список голосовых команд">
+        <h3>Команды</h3><p>Готовые голосовые команды</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-new-command.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Создание новой команды">
+        <h3>Новая команда</h3><p>Свои фразы, действие и озвучка</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-ai.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Настройки AI: провайдер, ключ и модель">
+        <h3>AI-провайдеры</h3><p>OpenAI, OpenRouter, Gemini</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-models.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Выбор и загрузка VRM-моделей">
+        <h3>Модели</h3><p>VRM по ссылке или из папки</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-general.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Общие настройки оформления">
+        <h3>Оформление</h3><p>Тема, цвета, док, громкость</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-settings.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Экран настроек">
+        <h3>Настройки</h3><p>Все разделы в одном месте</p>
+      </li>
+      <li class="shot">
+        <img src="images/shot-about.webp" width="520" height="1020" loading="lazy" decoding="async" alt="Экран «О приложении»">
+        <h3>О приложении</h3><p>Версия, ссылки, справка</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section" id="download" aria-labelledby="download-title">
+    <div class="download">
+      <div class="download__head">
+        <img src="images/icon.webp" width="64" height="64" loading="lazy" alt="">
+        <div>
+          <h2 id="download-title">Скачать Stella</h2>
+          <p class="download__meta">Версия 1.0.0 · Android · APK</p>
+        </div>
+      </div>
+      <ol class="steps">
+        <li>Скачайте APK и откройте файл.</li>
+        <li>Разрешите установку из неизвестных источников, если Android спросит.</li>
+        <li>Выдайте разрешения: поверх других окон, микрофон и контакты.</li>
+        <li>В разделе AI вставьте API-ключ и выберите модель.</li>
+      </ol>
+      <div class="actions">
+        <a class="btn btn--filled" href="#download" data-apk>
+          <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Скачать APK
+        </a>
+        <a class="btn btn--tonal" href="https://t.me/LuPlugins" target="_blank" rel="noopener" data-channel>
+          <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Канал
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="donate" aria-labelledby="donate-title">
+    <div class="donate">
+      <div class="donate__head">
+        <span class="card__icon"><svg class="icon" aria-hidden="true"><use href="#i-cup"/></svg></span>
+        <div>
+          <h2 id="donate-title">Угостить кофе</h2>
+          <p class="download__meta">Stella бесплатная. Если она вам нравится, можно поддержать разработку от 1&nbsp;USDT.</p>
+        </div>
+      </div>
+      <ul class="wallets">
+        <li class="wallet">
+          <div class="wallet__top">
+            <span class="chip">BNB Smart Chain · BEP20</span>
+            <button class="btn btn--tonal btn--sm" type="button" data-copy="bnb">
+              <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Копировать</span>
+            </button>
+          </div>
+          <code class="wallet__addr" id="bnb">0xc4239Aa8e2219F272b2c692f7053E7459B78F2d7</code>
+        </li>
+        <li class="wallet">
+          <div class="wallet__top">
+            <span class="chip">TON · Telegram Wallet</span>
+            <button class="btn btn--tonal btn--sm" type="button" data-copy="ton">
+              <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Копировать</span>
+            </button>
+          </div>
+          <code class="wallet__addr" id="ton">UQBolreQOG7_gZ-y5wLzKsOvApQHr4MNAewNIHwT86N_fjsg</code>
+        </li>
+        <li class="wallet wallet--qr">
+          <img class="wallet__qr" src="images/qr-cryptobot.png" width="400" height="400" alt="QR-код для перевода через Telegram CryptoBot">
+          <div class="wallet__body">
+            <span class="chip">Telegram · CryptoBot</span>
+            <p>Отсканируйте QR-код или откройте ссылку в Telegram и выберите удобную монету и сеть.</p>
+            <a class="btn btn--filled btn--sm" href="https://t.me/send?start=IVHAB0uZc8FL" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Открыть в Telegram
+            </a>
+          </div>
+        </li>
+      </ul>
+      <p class="donate__note" id="copy-status" role="status" aria-live="polite">Отправляйте только в указанной сети, иначе перевод может потеряться.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__card">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="images/icon.webp" width="56" height="56" loading="lazy" alt="">
+        <div>
+          <p class="footer__name">Stella</p>
+          <p class="footer__tag">Голосовой помощник с 3D-аватаром для Android</p>
+        </div>
+      </div>
+      <div class="footer__actions">
+        <a class="btn btn--filled" href="https://t.me/LuPlugins" target="_blank" rel="noopener" data-channel>
+          <svg class="icon" aria-hidden="true"><use href="#i-telegram"/></svg>Канал
+        </a>
+        <a class="btn btn--tonal" href="#top">
+          <svg class="icon" aria-hidden="true"><use href="#i-up"/></svg>Наверх
+        </a>
+      </div>
+    </div>
+    <ul class="footer__links" aria-label="Разделы сайта">
+      <li><a href="#features">Возможности</a></li>
+      <li><a href="#screens">Скриншоты</a></li>
+      <li><a href="#download">Скачать</a></li>
+      <li><a href="#donate">Кофе</a></li>
+    </ul>
+    <p class="footer__copy">© <span id="year">2026</span> Stella</p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
