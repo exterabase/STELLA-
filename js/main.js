@@ -4,7 +4,8 @@
 const CONFIG = {
   // Ссылка на APK (raw GitHub), например:
   // https://raw.githubusercontent.com/ИМЯ/РЕПО/main/Stella-1.0.0.apk
-  APK_URL: '',
+  APK_URL: 'https://github.com/exterabase/STELLA-/releases/latest/download/app-debug.apk
+     ',
   // Канал в Telegram
   CHANNEL_URL: 'https://t.me/LuPlugins',
 };
